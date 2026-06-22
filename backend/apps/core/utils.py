@@ -6,7 +6,13 @@ from django.conf import settings
 def send_order_notification(order):
     token = settings.TELEGRAM_BOT_TOKEN
     chat_id = settings.TELEGRAM_ADMIN_CHAT_ID
+    location_text = ""
 
+    if order.latitude and order.longitude:
+        location_text = (
+            f"\n🗺 Xarita:\n"
+            f"https://maps.google.com/?q={order.latitude},{order.longitude}\n"
+        )
     items_text = ""
 
     for item in order.items.all():
@@ -20,6 +26,7 @@ def send_order_notification(order):
 👤 {order.customer_name}
 📞 {order.phone}
 📍 {order.address}
+{location_text} 
 
 📦 Buyurtma:
 

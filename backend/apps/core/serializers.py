@@ -31,8 +31,8 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = [
             'id', 'customer_name', 'phone', 'address',
-            'total', 'status', 'status_display','payment_status','receipt',
-            'items', 'created_at'
+            'total', 'status', 'status_display','payment_status',
+            'receipt','items', 'created_at'
         ]
 class OrderItemCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -51,6 +51,8 @@ class OrderCreateSerializer(serializers.ModelSerializer):
             'customer_name',
             'phone',
             'address',
+            'latitude',
+            'longitude',
             'telegram_id',
             'telegram_username',
             'items'
@@ -63,6 +65,8 @@ class OrderCreateSerializer(serializers.ModelSerializer):
             customer_name=validated_data['customer_name'],
             phone=validated_data['phone'],
             address=validated_data['address'],
+            latitude=validated_data.get('latitude'),
+            longitude=validated_data.get('longitude'),
             telegram_id=validated_data.get('telegram_id'),
             telegram_username=validated_data.get('telegram_username', ''),
             total=0,

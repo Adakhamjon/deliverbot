@@ -12,10 +12,28 @@ function Checkout() {
     customer_name: user?.first_name || '',
     phone: '',
     address: '',
+    latitude: null,
+    longitude: null,
     telegram_id: user?.id || null,
     telegram_username: user?.username || '',
   });
+  const getLocation = () => {
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      setForm(prev => ({
+        ...prev,
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      }));
 
+      alert("📍 Lokatsiya muvaffaqiyatli olindi");
+    },
+    (error) => {
+      alert("Lokatsiyani olishda xatolik");
+      console.error(error);
+    }
+  );
+};
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -61,6 +79,13 @@ function Checkout() {
           onChange={e => setForm({...form, address: e.target.value})}
           required
         />
+        <button
+          type="button"
+          onClick={getLocation}
+          className="bg-blue-500 text-white px-4 py-2 rounded mb-3"
+        >
+          📍 Lokatsiyani yuborish
+        </button>
         <h3>Jami: {getTotal().toLocaleString()} so'm</h3>
         <button type="submit">Buyurtma berish</button>
       </form>

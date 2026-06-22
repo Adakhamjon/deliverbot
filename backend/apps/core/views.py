@@ -53,7 +53,13 @@ class OrderViewSet(viewsets.ModelViewSet):
         print("REQUEST DATA:")
         print(request.data)
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+
+        if not serializer.is_valid():
+            print(serializer.errors)
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         order = serializer.save()
 

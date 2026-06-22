@@ -55,7 +55,15 @@ class Order(models.Model):
     customer_name = models.CharField(max_length=200)
     phone = models.CharField(max_length=20)
     address = models.TextField()
+    latitude = models.FloatField(
+    null=True,
+    blank=True
+    )
 
+    longitude = models.FloatField(
+    null=True,
+    blank=True
+    )
     telegram_id = models.BigIntegerField(
         null=True,
         blank=True

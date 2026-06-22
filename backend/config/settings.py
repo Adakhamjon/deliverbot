@@ -217,6 +217,9 @@ ADMIN_SITE_TITLE = "Admin"
 ADMIN_INDEX_TITLE = "Boshqaruv"
 
 STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
