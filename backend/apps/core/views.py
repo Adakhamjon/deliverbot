@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.authentication import BasicAuthentication
 from urllib import request
 from .utils import (
     send_order_notification,
@@ -40,6 +41,7 @@ class MenuItemViewSet(viewsets.ReadOnlyModelViewSet):
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
+    authentication_classes = []
     permission_classes = [permissions.AllowAny]
     
     def get_serializer_class(self):
